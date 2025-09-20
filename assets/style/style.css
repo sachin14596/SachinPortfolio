@@ -225,6 +225,7 @@ main #about-section p {
   font-size: var(--font-size-body);
   line-height: 1.6;
   color: var(--color-text-gray);
+  margin-bottom: 1rem;
 }
 main #about-section p span {
   color: var(--color-primary);
@@ -512,5 +513,443 @@ footer #settings-button:hover {
   transform: scale(0.5) !important; /* Shrinks the box */
   pointer-events: none !important; /* Prevents interactions when hidden */
 }
+
+/* -------------------------------
+   HERO TAGLINE — custom style
+   (only affects the tagline line)
+   ------------------------------- */
+.hero-tagline {
+  font-family: "Space Grotesk", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-weight: 600;
+  line-height: 1.6;
+  max-width: 60ch;
+  margin-top: 1rem;
+
+  /* nudge to the right (desktop), neutral on mobile */
+  padding-left: clamp(0rem, 10vw, 8rem);
+
+  /* let just the tagline break the column centering */
+  align-self: flex-start;
+
+  /* a bit larger than body */
+  font-size: clamp(1rem, 1.05rem + 0.4vw, 1.3rem);
+}
+
+@media (max-width: 640px) {
+  .hero-tagline { padding-left: 0; }
+}
+
+/* safety: ensure hero image stays 300x300 circle */
+#hero-section #hero-right img {
+  height: 300px !important;
+  width: 300px !important;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+main #hero-section #hero-left .small-text,
+main #hero-section #hero-left h1 {
+  padding-left: clamp(0rem, 18vw, 11rem);
+  align-self: flex-start;   /* breaks out of center alignment */
+  text-align: left;
+}
+
+/* Compact expertise grid */
+.expertise-category {
+  margin-bottom: 2rem;
+}
+
+.expertise-category h3 {
+  margin: 1.5rem 0 1rem;
+  font-size: 1.3rem;
+  color: var(--color-primary);
+}
+
+.expertise-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 16px;
+  justify-items: center;
+}
+
+.expertise-tile {
+  width: 90px;
+  height: 90px;
+  border-radius: 12px;
+  outline: 1px solid var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+  padding: 10px;
+  text-align: center;
+}
+
+.expertise-tile img {
+  height: 40px;
+  width: 40px;
+  margin-bottom: 6px;
+}
+
+.expertise-tile span {
+  font-size: 0.8rem;
+  color: var(--color-text-gray);
+}
+
+.expertise-tile:hover {
+  outline: 2px solid var(--color-primary);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+/* Category Tile Layout */
+.expertise-category-tile {
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+  background-color: rgba(255, 255, 255, 0.02);
+  transition: all 0.3s ease;
+}
+
+.expertise-category-tile:hover {
+  border: 2px solid var(--color-primary);
+}
+
+.expertise-category-tile h3 {
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  margin-bottom: 12px;
+}
+
+.mini-logo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.mini-logo-grid img {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.3s ease;
+}
+
+.mini-logo-grid img:hover {
+  transform: scale(1.2);
+}
+
+/* ==== Expertise: category tiles with mini logo grid + labels ==== */
+
+/* Outer grid of tiles */
+#expertise-section #expertise-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+/* Category tile */
+.expertise-category-tile {
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(255,255,255,0.02);
+  transition: border 0.2s ease;
+}
+.expertise-category-tile:hover { border-width: 2px; }
+
+.expertise-category-tile h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+/* Mini logos in a neat grid; each cell wide enough for a label */
+.mini-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr)); /* was 48px */
+  gap: 12px;
+  justify-items: center;
+}
+
+/* Each logo slot becomes a vertical stack: icon above, label below */
+.logo-item {
+  width: 72px;                /* wider cell to fit text */
+  border-radius: 10px;
+  outline: 1px solid var(--color-primary);
+  background: rgba(153, 0, 255, 0.08);
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;     /* stack icon + label */
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: transform 0.2s ease, outline-width 0.2s ease;
+}
+
+.logo-item img {
+  width: 28px;                /* icon size */
+  height: 28px;
+  object-fit: contain;
+  display: block;
+}
+
+.logo-item .label {
+  display: block;             /* <-- now visible under the icon */
+  font-size: 11px;
+  line-height: 1.1;
+  color: var(--color-text-gray);
+  text-align: center;
+  max-width: 100%;
+  white-space: nowrap;        /* keep to one line */
+  overflow: hidden;
+  text-overflow: ellipsis;    /* … if it’s long */
+}
+
+.logo-item:hover { transform: translateY(-2px); outline-width: 2px; }
+
+/* Fallback when an image fails: show text badge only */
+.logo-item.fallback img { display: none; }
+.logo-item.fallback .label { display: block; color: var(--color-text); }
+.logo-item.fallback {
+  background: transparent;
+  outline-style: dashed;
+}
+
+/* === Expertise layout fixes: uniform spacing + auto height === */
+
+/* Outer grid of category tiles — do NOT stretch tiles to row height */
+#expertise-section #expertise-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  align-items: start; /* <-- key: tiles size to content */
+}
+
+/* Inside each tile: fixed-size cells so spacing is consistent everywhere */
+.mini-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 64px); /* fixed cell width */
+  gap: 10px;                                      /* spacing like your GenAI tile */
+  justify-content: center;                        /* center the grid within the tile */
+}
+
+/* Logo cell: compact vertical stack (icon + label) */
+.logo-item {
+  width: 64px;
+  border-radius: 10px;
+  outline: 1px solid var(--color-primary);
+  background: rgba(153, 0, 255, 0.08);
+  padding: 6px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.2s ease, outline-width 0.2s ease;
+}
+
+.logo-item img {
+  width: 24px;   /* smaller icon */
+  height: 24px;
+  object-fit: contain;
+}
+
+.logo-item .label {
+  font-size: 10px;            /* compact label */
+  line-height: 1.1;
+  color: var(--color-text-gray);
+  text-align: center;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.logo-item:hover {
+  transform: translateY(-2px);
+  outline-width: 2px;
+}
+
+/* === Expertise layout: 4 tiles on top, wide GenAI below === */
+
+/* Outer grid of tiles */
+#expertise-section #expertise-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  align-items: start;  /* tiles fit their content height */
+}
+
+/* Category tile */
+.expertise-category-tile {
+  border: 1px solid var(--color-primary);
+  border-radius: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  transition: border 0.2s ease;
+}
+.expertise-category-tile:hover { border-width: 2px; }
+
+.expertise-category-tile h3 {
+  margin: 0 0 12px;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+}
+
+/* Make GenAI tile span full width on its own row */
+.expertise-category-tile.wide {
+  grid-column: 1 / -1;   /* spans all columns */
+}
+
+/* Mini logo grids — uniform spacing (fixed-size cells) */
+.mini-logo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 64px);
+  gap: 10px;
+  justify-content: center;
+}
+
+/* For the wide GenAI tile, start from left and wrap across full width */
+.mini-logo-grid.wide {
+  justify-content: flex-start;
+}
+
+/* Logo cell: compact icon + label */
+.logo-item {
+  width: 64px;
+  border-radius: 10px;
+  outline: 1px solid var(--color-primary);
+  background: rgba(153, 0, 255, 0.08);
+  padding: 6px 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transition: transform 0.2s ease, outline-width 0.2s ease;
+}
+.logo-item img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+.logo-item .label {
+  font-size: 10px;
+  line-height: 1.1;
+  color: var(--color-text-gray);
+  text-align: center;
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.logo-item:hover { transform: translateY(-2px); outline-width: 2px; }
+
+/* Fallback to text badge if an image fails */
+.logo-item.fallback img { display: none; }
+.logo-item.fallback .label { display: block; color: var(--color-text); }
+.logo-item.fallback { background: transparent; outline-style: dashed; }
+
+/* === Expertise tweaks: tighter row gap + smaller headings === */
+
+/* Make column/row gaps uniform and a bit tighter */
+#expertise-section #expertise-card-container {
+  gap: 14px;           /* was 18px */
+  align-items: start;  /* tiles fit to content height (no stretching) */
+}
+
+/* Ensure no extra margins are adding space between rows */
+.expertise-category-tile {
+  margin: 0 !important;         /* override any older margin-bottom */
+  padding: 14px 14px 12px;      /* slightly tighter padding */
+}
+
+/* Keep the wide GenAI tile full-width; no extra top margin */
+.expertise-category-tile.wide {
+  grid-column: 1 / -1;
+  margin-top: 0;
+}
+
+/* Smaller category titles */
+.expertise-category-tile h3 {
+  font-size: 1.05rem;  /* was ~1.2rem */
+  margin-bottom: 10px; /* a touch tighter below the heading */
+}
+
+/* === Place DevOps under Cloud on desktop, keep GenAI full width === */
+#expertise-section #expertise-card-container {
+  grid-auto-flow: row dense; /* fill gaps sensibly */
+}
+
+/* Desktop layout: lock 4 columns so we can target column 4 */
+@media (min-width: 1000px) {
+  #expertise-section #expertise-card-container {
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+  }
+  .expertise-category-tile.devops { grid-column: 4; }   /* sits under Cloud */
+  .expertise-category-tile.wide   { grid-column: 1 / -1; } /* GenAI spans full width */
+}
+
+/* Below desktop, let it auto-flow */
+@media (max-width: 999.98px) {
+  .expertise-category-tile.devops { grid-column: auto; }
+}
+
+/* === Skills masonry layout (packs tiles vertically) === */
+#expertise-section #expertise-card-container {
+  display: grid;
+  gap: 14px;
+  grid-auto-flow: dense;       /* backfill gaps */
+  grid-auto-rows: 8px;         /* tiny base row for masonry calc */
+}
+
+/* Columns: 4 on desktop, responsive below */
+@media (min-width: 1100px) {
+  #expertise-section #expertise-card-container {
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+  }
+}
+@media (max-width: 1099.98px) {
+  #expertise-section #expertise-card-container {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  }
+}
+
+/* Keep GenAI full width */
+.expertise-category-tile.wide { grid-column: 1 / -1; }
+
+/* Ensure DevOps isn't forced to any column anymore */
+.expertise-category-tile.devops { grid-column: auto !important; }
+
+/* Skills masonry grid */
+#expertise-section #expertise-card-container {
+  display: grid;
+  gap: 14px;
+  grid-auto-flow: dense;
+  grid-auto-rows: 8px;              /* tiny base row for masonry spans */
+}
+
+/* Desktop: 4 columns */
+@media (min-width: 1100px) {
+  #expertise-section #expertise-card-container {
+    grid-template-columns: repeat(4, minmax(260px, 1fr));
+  }
+}
+
+/* GenAI wide tile spans full width, but row height is now handled by JS span */
+.expertise-category-tile.wide { grid-column: 1 / -1; }
+
+.logo-item .label{
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: clip;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;      /* wrap to 2 lines */
+  -webkit-box-orient: vertical;
+  line-height: 1.1;
+}
+.logo-item { outline: 1px solid rgba(153,0,255,0.7); }
+.logo-item:hover { outline-width: 2px; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,59 +1,53 @@
-//TextTyper by @Sohez.
+/* ============================================================
+   typing.js — Rotates role titles in the hero section
+   HOW TO EDIT:
+   - Change the WORDS array to your preferred labels.
+   - Speeds/delays can be tuned via the constants below.
+   Hooks:
+   - Expects #typing-text and #cursor in your HTML.
+   ============================================================ */
 
 const typingText = document.querySelector("#typing-text");
 const cursorSpan = document.querySelector("#cursor");
 
-const texts = [
-  "Web Designer",
-  "Video Editor",
-  "Blogger",
-  "Content Writer",
-  "Android Developer",
-  "YouTuber",
-];
+// === EDIT THESE WORDS TO CHANGE WHAT TYPES IN THE HERO ===
+const WORDS = ["AI Engineer", "NLP Engineer","ML Engineer","Data Scientist","Database Engineer","Data Engineer","Data Analyst"];
 
-const typingDelay = 200;
-const erasingDelay = 200;
-const newTextDelay = 1000;
-const textHoldingDelay = 1000;
+// === TIMING (ms) ===
+const TYPE_MS = 90;        // per character while typing
+const ERASE_MS = 50;       // per character while erasing
+const HOLD_MS = 900;       // pause after full word
+const BETWEEN_WORD_MS = 600; // pause after erase before next word
 
-const wait = (time) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(resolve, time);
-  });
-};
+// small helper
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-const display = (text) => {
-  typingText.innerText = text;
-};
-
-const start = async () => {
-
-  for (let item of texts) {
-    const length = item.length;
-    let textStack = "";
-
-    for (let i = 0; i < length; i++) {
-      textStack += item[i];
-      await wait(typingDelay);
-      display(textStack);
-    }
-
-    await wait(textHoldingDelay);
-
-    for (let i = length - 1; i >= 0; i--) {
-      textStack = textStack.slice(0, -1); // Remove the last character.
-      await wait(erasingDelay);
-      display(textStack);
-    }
-
-    await wait(newTextDelay);
+async function typeWord(word) {
+  // type
+  for (let i = 1; i <= word.length; i++) {
+    typingText.textContent = word.slice(0, i);
+    await wait(TYPE_MS);
   }
-};
+  await wait(HOLD_MS);
 
-document.addEventListener("DOMContentLoaded", async () => {
-  // On DOM Load initiate the effect
+  // erase
+  for (let i = word.length; i >= 0; i--) {
+    typingText.textContent = word.slice(0, i);
+    await wait(ERASE_MS);
+  }
+  await wait(BETWEEN_WORD_MS);
+}
+
+async function startTypingLoop() {
+  if (!typingText) return;
+  // blink cursor
+  if (cursorSpan) setInterval(() => cursorSpan.classList.toggle("on"), 450);
+
   while (true) {
-    await start();
+    for (const w of WORDS) {
+      await typeWord(w);
+    }
   }
-});
+}
+
+document.addEventListener("DOMContentLoaded", startTypingLoop);
