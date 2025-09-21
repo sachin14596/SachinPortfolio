@@ -1,62 +1,45 @@
-const checkEmailIsValid = (email) => {
-  let emailReg = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  return emailReg.test(email);
-};
+// Initialize EmailJS (put your Public Key here)
+emailjs.init({ publicKey: "YOUR_PUBLIC_KEY" });
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const form = document.getElementById("form");
+const form = document.getElementById("form");
+const btn  = document.getElementById("sendBtn");
+const resp = document.getElementById("message-response");
 
-  form.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    await setEmail();
-  });
+function show(msg) { resp.textContent = msg; }
 
-});
+form.addEventListener("submit", async (e) => {
+  e.preventDefault();
 
-async function setEmail() {
-  const responseText = document.getElementById("message-response");
-  const email = document.getElementById("Email").value.trim();
-  const message = document.getElementById("Message").value.trim();
-  const emailUrl =
-    "https://script.google.com/macros/s/AKfycbwkjI7POBip0D3idUWfZwmdN4bV9TPfkfUWLwWZbu_rxDWSM5_F5VI1jVAXCKlRt0ykAg/exec";
+  // Honeypot: if bots fill this, silently ignore
+  if (form.company && form.company.value) return;
 
-  if (!email || !message) {
-    responseText.innerText = "Please fill both the fields.";
-    return;
-  }
+  const serviceId  = form.dataset.service;   // from data-service
+  const templateId = form.dataset.template;  // from data-template
 
-  if (!checkEmailIsValid(email)) {
-    responseText.innerText = "Enter a valid email address.";
-    return;
-  }
+  const from_email = form.from_email.value.trim();
+  const message    = form.message.value.trim();
 
-  const formData = new FormData();
-  formData.set("Name", "@PORTFOLLIO");
-  formData.set("Email", email);
-  formData.set("Request", message);
+  if (!from_email || !message) { show("Please enter email and a message."); return; }
 
-  responseText.innerText = "Sending...";
+  // Simple throttle: block if sent in last 30s
+  const now = Date.now();
+  const lastSent = +localStorage.getItem("last_sent_ts") || 0;
+  if (now - lastSent < 30_000) { show("Please wait a few seconds before sending again."); return; }
+
+  btn.disabled = true; show("Sending…");
 
   try {
-    const response = await fetch(emailUrl, {
-      method: "POST",
-      body: formData,
-    }).catch((error) => {
-      throw error; // throw a text
+    await emailjs.send(serviceId, templateId, {
+      from_email, message, to_email: "sachinuk145@gmail.com" // optional, add in template too
     });
 
-    const result = await response.json();
-
-    responseText.innerText = `${result.result}`;
-
-    setTimeout(resetTheForm, 2000);
-  } catch (error) {
-    responseText.innerText = "Something went wrong, try again. " + error;
+    show("Thanks! I’ll get back to you soon.");
+    form.reset();
+    localStorage.setItem("last_sent_ts", String(now));
+  } catch (err) {
+    console.error(err);
+    show("Couldn’t send. Please try again or email me directly.");
+  } finally {
+    btn.disabled = false;
   }
-}
-
-function resetTheForm() {
-  document.getElementById("message-response").innerText = "";
-  document.getElementById("Email").value = "";
-  document.getElementById("Message").value = "";
-}
+});
