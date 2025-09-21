@@ -98,7 +98,7 @@
       <article>
         <h2>About Me</h2>
         <p>
-          <span>AI Engineer</span> with <span>4.5+</span> years of experience in the data domain, specializing in 
+          <span>AI Engineer</span> with <span>3.5+</span> years of experience in the data domain, specializing in 
           <span>ML</span>, <span>NLP</span>, <span>RAG</span>, <span>LLMs</span>, <span>Agents</span>, 
           <span>AWS</span>, <span>LLMOps</span> and <span>Databases</span>. I’m all about solving problems 
           and building AI solutions that make a real impact. Whether it’s automating processes or creating 
@@ -135,11 +135,22 @@
            PROJECTS
            ============================================================ -->
       <section id="projects-section">
-        <h2>Projects</h2>
-        <div id="projects-card-container">
-          <!-- Filled by ./assets/script/projects.js -->
-        </div>
-      </section>
+      <h2>Projects</h2>
+
+      <div class="projects-carousel">
+        <button class="proj-nav prev" aria-label="Scroll left">‹</button>
+
+        <!-- Horizontal track (filled by projects.js) -->
+        <div id="projects-track" class="proj-track" tabindex="0" aria-label="Projects carousel"></div>
+
+        <button class="proj-nav next" aria-label="Scroll right">›</button>
+
+        <!-- Optional edge fade -->
+        <div class="edge edge-left" aria-hidden="true"></div>
+        <div class="edge edge-right" aria-hidden="true"></div>
+      </div>
+    </section>
+
     </main>
 
     <!-- ==============================================================

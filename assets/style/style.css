@@ -952,4 +952,235 @@ main #hero-section #hero-left h1 {
 .logo-item { outline: 1px solid rgba(153,0,255,0.7); }
 .logo-item:hover { outline-width: 2px; }
 
+/* ===== Projects: Horizontal Carousel ===== */
+.projects-carousel {
+  position: relative;
+  margin-top: 12px;
+}
+
+/* Scrollable track */
+.proj-track {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 8px 14px;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 8px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide native scrollbar (kept accessible) */
+.proj-track::-webkit-scrollbar { height: 8px; }
+.proj-track::-webkit-scrollbar-thumb { background: rgba(153,0,255,0.5); border-radius: 8px; }
+@supports (scrollbar-width: thin) {
+  .proj-track { scrollbar-width: thin; }
+}
+
+/* Card: compact tile suitable for carousel */
+.projects-card {
+  flex: 0 0 220px;                 /* fixed width tile */
+  scroll-snap-align: start;
+  outline: 1px solid var(--color-primary);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  transition: transform .18s ease, outline-width .18s ease;
+}
+.projects-card:hover { transform: translateY(-2px); outline-width: 2px; }
+
+.projects-card img { width: 44px; height: 44px; object-fit: contain; margin-bottom: 8px; }
+.projects-card h3 { font-size: 0.95rem; line-height: 1.2; margin: 4px 0 6px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.projects-card p { font-size: 0.82rem; color: var(--color-text-gray); line-height: 1.3; margin: 0 0 10px;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.projects-card a { align-self: flex-start; padding: 6px 12px; font-size: 0.82rem;
+  border-radius: 8px; border:1px solid var(--color-primary); color: var(--color-text); text-decoration:none; }
+.projects-card a:hover { background: var(--color-primary); }
+
+/* Nav buttons */
+.proj-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  background: rgba(0,0,0,0.35);
+  color: var(--color-text);
+  cursor: pointer;
+  display: grid; place-items: center;
+  backdrop-filter: blur(2px);
+}
+.proj-nav.prev { left: -4px; }
+.proj-nav.next { right: -4px; }
+.proj-nav:hover { background: rgba(153,0,255,0.25); }
+
+/* Edge fades (visual cue that more items exist) */
+.edge {
+  position: absolute; top: 0; bottom: 0; width: 48px; pointer-events: none; z-index: 1;
+  background: linear-gradient(to right, var(--color-background), transparent);
+}
+.edge-right { right: 0; transform: scaleX(-1); }
+.edge-left  { left: 0; }
+
+/* Responsive: tighter tiles on narrow screens */
+@media (max-width: 700px){
+  .projects-card { flex-basis: 180px; }
+}
+/* ===== Carousel: hide scrollbar entirely (but keep scroll) ===== */
+.proj-track {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-padding: 8px;
+  -webkit-overflow-scrolling: touch;
+
+  /* hide in Firefox/Edge */
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE/old Edge */
+}
+.proj-track::-webkit-scrollbar { display: none; }  /* Chrome/Safari */
+
+/* ===== Bigger tiles ===== */
+.projects-card {
+  flex: 0 0 260px;              /* was 220px — slightly larger */
+  padding: 16px;                /* a touch more breathing room */
+}
+.projects-card img {
+  width: 48px;                  /* bigger icon */
+  height: 48px;
+}
+.projects-card h3 { font-size: 1rem; }
+.projects-card p  { font-size: 0.86rem; }
+.projects-card a  { font-size: 0.86rem; padding: 6px 14px; }
+
+/* Optional: on very small screens keep them reasonable */
+@media (max-width: 700px){
+  .projects-card { flex-basis: 210px; }
+  .projects-card img { width: 42px; height: 42px; }
+}
+
+/* ===== Carousel layout ===== */
+.projects-carousel {
+  position: relative;
+  margin-top: 12px;
+  overflow: visible;                 /* allow arrows outside */
+}
+
+/* Gap and height tokens for easy tuning */
+.proj-track {
+  --tile-gap: 20px;
+  --card-height: 260px;              /* increase if you want taller cards */
+  display: flex;
+  gap: var(--tile-gap);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 8px 24px 16px;            /* inner padding so arrows/edges don't sit on content */
+  scroll-snap-type: x mandatory;
+  scroll-padding-left: 24px;
+  -webkit-overflow-scrolling: touch;
+
+  /* Hide scrollbar across browsers */
+  scrollbar-width: none;             /* Firefox */
+  -ms-overflow-style: none;          /* IE/old Edge */
+}
+.proj-track::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+/* Exactly ~3 tiles visible on desktop: basis = (100% - 2 gaps) / 3 */
+.projects-card {
+  flex: 0 0 calc((100% - 2 * var(--tile-gap)) / 3);
+  max-width: calc((100% - 2 * var(--tile-gap)) / 3);
+  height: var(--card-height);
+  scroll-snap-align: start;
+
+  outline: 1px solid var(--color-primary);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+  padding: 16px;
+  position: relative;                /* footer pin */
+  transition: transform .18s ease, outline-width .18s ease;
+}
+.projects-card:hover { transform: translateY(-2px); outline-width: 2px; }
+
+/* Unified content area (title/desc grow), footer pinned */
+.projects-card .card-body {
+  display: flex; flex-direction: column;
+  height: 100%;
+  padding-bottom: 56px;              /* reserve space for footer button */
+}
+.projects-card img {
+  width: 48px; height: 48px; object-fit: contain; margin-bottom: 10px;
+}
+.projects-card h3 {
+  font-size: 1.05rem; line-height: 1.25; margin: 2px 0 6px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.projects-card p {
+  color: var(--color-text-gray); font-size: 0.9rem; line-height: 1.4; margin: 0;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+
+/* Footer pinned bottom-left */
+.projects-card .card-footer {
+  position: absolute; left: 16px; bottom: 16px;
+}
+.projects-card .view {
+  display: inline-block;
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  border-radius: 8px;
+  border: 1px solid var(--color-primary);
+  color: var(--color-text);
+  text-decoration: none;
+  background: transparent;
+  transition: background .15s ease;
+}
+.projects-card .view:hover { background: var(--color-primary); }
+
+/* Nav arrows placed OUTSIDE content so they don't cover text */
+.proj-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 3;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1px solid var(--color-primary);
+  background: rgba(0,0,0,0.35);
+  color: var(--color-text);
+  cursor: pointer; display: grid; place-items: center;
+  backdrop-filter: blur(2px);
+}
+.proj-nav.prev { left: -44px; }      /* move outside */
+.proj-nav.next { right: -44px; }
+.proj-nav:hover { background: rgba(153,0,255,0.25); }
+
+/* Edge fades (outside, not covering content) */
+.edge {
+  position: absolute; top: 0; bottom: 0; width: 56px; pointer-events: none; z-index: 2;
+  background: linear-gradient(to right, var(--color-background), transparent);
+}
+.edge-right { right: 0; transform: scaleX(-1); }
+.edge-left  { left: 0; }
+
+/* ---- Responsive fallbacks ---- */
+/* Medium screens: show ~2 per view */
+@media (max-width: 1100px) {
+  .projects-card {
+    flex-basis: calc((100% - var(--tile-gap)) / 2);
+    max-width: calc((100% - var(--tile-gap)) / 2);
+  }
+}
+/* Small screens: 1 per view */
+@media (max-width: 640px) {
+  .projects-card {
+    flex-basis: 100%;
+    max-width: 100%;
+    --card-height: 280px;           /* a bit taller for mobile text */
+  }
+  .proj-nav.prev { left: -36px; }
+  .proj-nav.next { right: -36px; }
+}
+
 /*# sourceMappingURL=style.css.map */
