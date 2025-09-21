@@ -1483,38 +1483,85 @@ main #hero-section #hero-left h1 {
 /* Hide any leftover contact tiles/socials if still present */
 #contact-container, #social-links { display: none !important; }
 
-/* Contact-only floating socials */
-#contact-section { position: relative; padding-bottom: 120px; } /* space so icons don't overlap text */
-
-#contact-social {
-  position: absolute;           /* anchored to the contact section */
-  right: 12px;
-  bottom: 60px;                 /* sits above the copyright line */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  z-index: 5;
+/* ===== Full-screen hero + header offset ===== */
+:root {
+  --header-h: 64px;   /* nav ki approx height; adjust if needed */
 }
 
-#contact-social .fab {
-  width: 44px; height: 44px;
+/* Keep header on top so content overlap na ho */
+header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  /* optional: halki transparency */
+  background: linear-gradient(to bottom, rgba(19,7,31,0.85), rgba(19,7,31,0));
+  backdrop-filter: blur(2px);
+}
+
+/* Content ko header ke niche se start karao */
+main { 
+  padding-top: var(--header-h);
+}
+
+/* HERO must fill the first viewport (minus header) */
+main #hero-section {
+  min-height: calc(100svh - var(--header-h)) !important;
+  align-items: center;             /* grid rows center */
+}
+
+/* Mobile pe jo extra margin Hero par aa rahi thi, usse override karo */
+@media (max-width: 575.98px) {
+  main #hero-section {
+    margin-top: 0 !important;
+  }
+}
+
+/* Optional: ek chhota scroll cue (arrow) jo about tak le jaye */
+.scroll-cue {
+  position: absolute;
+  left: 50%; bottom: 16px;
+  transform: translateX(-50%);
+}
+.scroll-cue a {
+  display: inline-block;
+  width: 42px; height: 42px;
   border-radius: 50%;
   border: 1px solid var(--color-primary);
-  background: var(--color-background);
-  color: var(--color-text);
   display: grid; place-items: center;
+  color: var(--color-text);
   text-decoration: none;
-  transition: transform .15s ease, background .15s ease, border-width .15s ease;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+  transition: transform .15s ease, background .15s ease;
 }
-#contact-social .fab:hover {
-  transform: translateY(-2px);
-  background: var(--color-primary);
-  border-width: 2px;
+.scroll-cue a:hover { transform: translateY(-2px); background: rgba(153,0,255,0.15); }
+
+/* === Make theme toggle same size as LinkedIn/GitHub (44x44) === */
+footer #settings-button {
+  height: 44px !important;
+  width: 44px !important;
+  right: 12px;               /* keep aligned with socials */
+  bottom: 12px;              /* base position */
+  border-radius: 50%;
+  outline: 1px solid var(--color-primary);   /* match social buttons */
+  background-color: var(--color-background);
+  display: grid;
+  place-items: center;
+  transition: all 0.2s ease;
+}
+footer #settings-button:hover {
+  outline-width: 2px;
 }
 
-/* small screens: nudge up a bit */
-@media (max-width: 640px){
-  #contact-social { bottom: 80px; right: 10px; }
+/* scale the icon inside the smaller button */
+footer #settings-button img {
+  width: 22px !important;
+  height: 22px !important;
+}
+
+/* Lift the social stack a bit so it sits just above the smaller toggle */
+#floating-social {
+  bottom: 68px !important;   /* 12 (gap) + 44 (toggle height) + ~12px buffer */
 }
 
 /*# sourceMappingURL=style.css.map */

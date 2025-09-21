@@ -1,45 +1,80 @@
 const ProjectsData = [
   {
-    name: "Mcodo :Learn Coding with AI",
+    name: "Sheffield Council School CatchmentBot (Groq + LLaMA3)",
     logo: "https://play-lh.googleusercontent.com/au3QvRNWZiRamIYLRb0irFPno-xuzSJDzrL1Te0vGx7889ROiOp3Sr7dIByGomFDJpbX=w480-h960-rw",
     description:
-      "Powerful code compiler, AI chat assistant, interactive coding quizzes, and chapter-based learning resources.",
-    link: "https://play.google.com/store/apps/details?id=com.sohezsoft.mcodo&hl=en_IN",
+      "Built an AI-powered assistant for Sheffield City Council to analyze school catchment zones using geospatial data, Groq-accelerated LLaMA 3, and LangChain agents. Delivered a Streamlit dashboard enabling fairness audits, overlap detection, transport burden classification, and scenario planning through natural language queries.",
+    link: "https://github.com/sachin14596/Sheffield-Council-School-CatchmentBot-llm-groq-llama3/blob/main/README.md",
   },
   {
-    name: "Student Portal App",
+    name: "CrewAI Multi-Agent Blog Post Generator",
     logo: "https://cdn-icons-png.flaticon.com/128/14664/14664511.png",
     description:
-      "Student Portal App, build using kotlin.",
-    link: "https://github.com/sohez/StudentPortalApp",
+      "Developed a multi-agent AI system using CrewAI, Serper API, and GPT-3.5 to automate research-backed blog generation. Designed agents for web research and content writing, integrated error handling via LiteLLM, and deployed a Streamlit UI producing markdown outputs with inline citations.",
+    link: "https://github.com/sachin14596/CrewAI-Multi-Agent-Blog-Generator/blob/main/README.md",
   },
   {
-    name: "M.P.C",
+    name: "Natural Language SQL Agent (LangGraph + LLaMA 3)",
     logo: "https://cdn-icons-png.flaticon.com/128/1011/1011812.png",
     description:
-      "powerful and easy-to-use solution for calculating academic performance. Built with HTML, CSS, JavaScript, html2canvas, and jsPDF.",
-    link: "https://sohez.github.io/Marks-Percentage-Calculator/",
+      "Built an autonomous LLM-powered agent with LangGraph and Groq-accelerated LLaMA 3 that converts natural language queries into SQL with schema understanding, error correction, and retries. Delivered through a Streamlit UI with real-time query execution on SQLite.",
+    link: "https://github.com/sachin14596/Natural-Language-SQL-Agent/blob/main/README.md",
   },
   {
-    name: "PHP Registration full API",
+    name: "Multimodal Agentic AI Video Summarizer",
     logo: "https://cdn-icons-png.flaticon.com/128/17335/17335144.png",
     description:
-      "Registration full API PHP and MySql.",
-    link: "https://github.com/sohez/PHP-Projects",
+      "Developed a Streamlit app using Phidata Agents and Google Gemini 2.0 Flash to analyze and summarize videos through custom natural language queries. Enhanced responses with real-time web search (DuckDuckGo) and delivered an interactive multimodal user experience.",
+    link: "https://github.com/sachin14596/Agentic-Video-Summarizer/blob/main/README.md",
   },
   {
-    name: "Tic-Tac-Toe",
+    name: "Medical RAG System (Privacy-Focused Healthcare AI)",
     logo: "https://cdn-icons-png.flaticon.com/128/434/434798.png",
     description:
-      "play against a bot using the Minimax algorithm or with a friend. This game is built with HTML, CSS, and JS.",
-    link: "https://sohez.github.io/tic-tac-toe/",
+      "Built a locally deployed Retrieval-Augmented Generation (RAG) system for medical case analysis using Bio_ClinicalBERT, all-mpnet-base-v2, Medical-LLaMA3-8B, and Gemma-2-2B. Ensured privacy compliance and robust accuracy through evaluation with Precision@k, Recall@k, BLEU, and ROUGE.",
+    link: "https://github.com/sachin14596/Medical-RAG-System/blob/main/README.md",
   },
   {
-    name: "AI Chat",
+    name: "Advanced Database – Bank Management System",
     logo: "https://cdn-icons-png.flaticon.com/128/6873/6873405.png",
     description:
-      "Gemini AI chat bot, this is built with HTML, CSS, and JS.",
-    link: "https://github.com/sohez/ai-chat",
+      "Designed and implemented a relational database system for banking operations covering customer management, transactions, loans, and compliance. Delivered secure role-based access, optimized query performance with indexing and execution plans, and ensured concurrency control for reliable multi-user transactions.",
+    link: "https://github.com/sachin14596/Advanced-Database---Bank-Management-System/blob/main/README.md",
+  },
+  {
+    name: "Cyberbullying Detection with Advanced Data Mining",
+    logo: "https://cdn-icons-png.flaticon.com/128/6873/6873405.png",
+    description:
+      "Applied SVM, Random Forest, Logistic Regression, and K-Means clustering on Kaggle datasets to detect and analyze cyberbullying patterns. Achieved 77% classification accuracy, identified distinct behavioral clusters, and extracted high-lift association rules to enhance online safety.",
+    link: "https://github.com/sachin14596/Advanced-Data-Mining-Techniques-in-Cyberbullying-Detection/blob/main/README.md",
+  },
+  {
+    name: "Customer Churn Prediction with Genetic Algorithm Feature Selection",
+    logo: "https://cdn-icons-png.flaticon.com/128/6873/6873405.png",
+    description:
+      "Analyzed IBM telecom dataset with EDA and preprocessing, applying one-point, two-point, and uniform crossover genetic algorithms for feature selection. Used logistic regression for churn prediction and evaluated performance with error bar plots.",
+    link: "https://github.com/sachin14596/Customer-Churn-Prediction-Feature-Selection-using-Genetic-Algorithm/blob/main/README.md",
+  },
+  {
+    name: "Big Data & LLM Applications – EDA, ML, and Graph Analytics",
+    logo: "https://cdn-icons-png.flaticon.com/128/6873/6873405.png",
+    description:
+      "Explored the evolution and future of big data with practical applications using the Catch the Pink Flamingo dataset for EDA and ML, and Neo4J for graph analytics. Highlighted the role of big data and LLMs in enabling innovation and data-driven decision-making.",
+    link: "https://github.com/sachin14596/Big-Data-Ecosystem/blob/main/README.md",
+  },
+  {
+    name: "Web Social Media Analytics – Sentiment, Graph, and Topic Modeling",
+    logo: "https://cdn-icons-png.flaticon.com/128/6873/6873405.png",
+    description:
+      "Analyzed Twitter, news, and event data using Python for sentiment analysis, classification (SVM, Naïve Bayes, LSTM), and text summarization. Applied graph analytics with NetworkX to study community structures and centrality, uncovering hidden narratives in digital interactions.",
+    link: "https://github.com/sachin14596/Web-Social-Media-Analytics-NLP-and-Grpah-Analytics/blob/main/README.md",
+  },
+  {
+    name: "Sales Analytics Dashboard – AtliQ Technologies",
+    logo: "https://cdn-icons-png.flaticon.com/128/6873/6873405.png",
+    description:
+      "Built a Power BI dashboard with SQL-based data cleaning and exploration to analyze revenue, profit margins, and customer performance across markets and zones. Identified COVID-19-driven sales decline, regional profit gaps, and top customers, enabling data-driven growth strategies.",
+    link: "https://github.com/sachin14596/Sales-Analysis---AtliQ-Technologies/blob/main/README.md",
   }
 ];
 
